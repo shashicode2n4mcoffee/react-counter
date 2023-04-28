@@ -1,7 +1,12 @@
+import './Home.css'
 import React from 'react'
 
 const Home = () => {
-  return <div>Welcome to our crud app</div>
+  return (
+    <div className='home'>
+      <h1>Welcome to our crud app</h1>
+    </div>
+  )
 }
 
 export default Home
