@@ -1,6 +1,7 @@
 import './Home.css'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import TodoList from './TodoList'
 
 const URL = 'https://jsonplaceholder.typicode.com/todos'
 
@@ -38,7 +39,8 @@ const Home = () => {
     <div className='home'>
       <h1>Welcome to our crud app</h1>
       <div className='todos-list'>
-        {todos.map((todo, index) => {
+        <TodoList todoList={todos} />
+        {/* {todos.map((todo, index) => {
           return (
             <div className='todo-item'>
               <div className='todo-ids'>
@@ -55,7 +57,7 @@ const Home = () => {
               </div>
             </div>
           )
-        })}
+        })} */}
       </div>
     </div>
   )
