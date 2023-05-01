@@ -12,7 +12,6 @@ const Home = () => {
     // async await code
     try {
       const response = await axios.get(URL)
-      console.log(response.data)
       setTodos(response.data)
       setError(false)
     } catch (error) {
@@ -36,6 +35,19 @@ const Home = () => {
   return (
     <div className='home'>
       <h1>Welcome to our crud app</h1>
+      <div className='todos-list'>
+        {todos.map((todo, index) => {
+          return (
+            <div className='todo-item'>
+              <div className='todo-ids'>
+                <h2>ID : {todo.id}</h2>
+                <h2 className='todo-userId'>User ID : {todo.userId}</h2>
+              </div>
+              <h3>Title : {todo.title}</h3>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
