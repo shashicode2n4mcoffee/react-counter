@@ -7,6 +7,7 @@ const URL = 'https://jsonplaceholder.typicode.com/todos'
 
 const Home = () => {
   const [todos, setTodos] = useState([])
+  const [showData, setShowData] = useState([])
   const [error, setError] = useState(false)
 
   const fetchTodos = async () => {
@@ -31,6 +32,10 @@ const Home = () => {
     setTodos((prevState) => prevState.filter((todo) => todo.id !== id))
   }
 
+  const handleCompletedTodos = () => {
+    setShowData(todos.filter((item) => item.completed))
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -38,26 +43,13 @@ const Home = () => {
   return (
     <div className='home'>
       <h1>Welcome to our crud app</h1>
+      <div>
+        <button>Show All Todos</button>
+        <button onClick={handleCompletedTodos}>Show Completed Todos</button>
+        <button>Show Incomplete Todos</button>
+      </div>
       <div className='todos-list'>
-        <TodoList todoList={todos} />
-        {/* {todos.map((todo, index) => {
-          return (
-            <div className='todo-item'>
-              <div className='todo-ids'>
-                <h2>ID : {todo.id}</h2>
-                <h2 className='todo-userId'>User ID : {todo.userId}</h2>
-              </div>
-              <div className='todo-desc'>
-                <h3>Title : {todo.title}</h3>
-                <div>
-                  <button onClick={() => handleDeleteById(todo.id)}>
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          )
-        })} */}
+        <TodoList todoList={showData} handleDeleteById={handleDeleteById} />
       </div>
     </div>
   )

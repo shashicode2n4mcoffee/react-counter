@@ -1,14 +1,11 @@
 import { useEffect } from 'react'
 import Todo from './Todo'
 
-const TodoList = (props) => {
-  useEffect(() => {
-    console.log('PROPS : ', props)
-  }, [props])
+const TodoList = ({ todoList, handleDeleteById }) => {
   return (
     <div>
-      {props.todoList?.map((item) => (
-        <Todo todo={item} key={item.id} />
+      {todoList?.map((item) => (
+        <Todo todo={item} key={item.id} handleDeleteById={handleDeleteById} />
       ))}
     </div>
   )

@@ -1,4 +1,4 @@
-const Todo = ({ todo }) => {
+const Todo = ({ todo, handleDeleteById }) => {
   return (
     <div className='todo-item'>
       <div className='todo-ids'>
@@ -7,8 +7,9 @@ const Todo = ({ todo }) => {
       </div>
       <div className='todo-desc'>
         <h3>Title : {todo.title}</h3>
-        <div>
-          {/* <button onClick={() => handleDeleteById(todo.id)}>Delete</button> */}
+        <div className='todo-desc-actions'>
+          <h5>Completed : {todo.completed ? 'Yes' : 'No'}</h5>
+          <button onClick={() => handleDeleteById(todo.id)}>Delete</button>
         </div>
       </div>
     </div>
