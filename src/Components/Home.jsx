@@ -26,11 +26,13 @@ const Home = () => {
     //   .catch((err) => console.log('ERROR ', err))
   }
 
+  const handleDeleteById = (id) => {
+    setTodos((prevState) => prevState.filter((todo) => todo.id !== id))
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
-
-  useEffect(() => console.log('TODOS DATA : ', todos, error), [todos])
 
   return (
     <div className='home'>
@@ -43,7 +45,14 @@ const Home = () => {
                 <h2>ID : {todo.id}</h2>
                 <h2 className='todo-userId'>User ID : {todo.userId}</h2>
               </div>
-              <h3>Title : {todo.title}</h3>
+              <div className='todo-desc'>
+                <h3>Title : {todo.title}</h3>
+                <div>
+                  <button onClick={() => handleDeleteById(todo.id)}>
+                    Delete
+                  </button>
+                </div>
+              </div>
             </div>
           )
         })}
