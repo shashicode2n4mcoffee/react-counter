@@ -42,6 +42,10 @@ const Home = () => {
     setShowData(todos.filter((item) => !item.completed))
   }
 
+  const handleShowAllTodos = () => {
+    setShowData(todos)
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -50,7 +54,7 @@ const Home = () => {
     <div className='home'>
       <h1>Welcome to our crud app</h1>
       <div>
-        <button>Show All Todos</button>
+        <button onClick={handleShowAllTodos}>Show All Todos</button>
         <button onClick={handleCompletedTodos}>Show Completed Todos</button>
         <button onClick={handleIncompleteTodos}>Show Incomplete Todos</button>
       </div>
