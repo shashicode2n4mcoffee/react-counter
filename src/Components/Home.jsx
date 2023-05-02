@@ -46,6 +46,16 @@ const Home = () => {
     setShowData(todos)
   }
 
+  const handleTodosAscendingOrder = () => {
+    const tempTodos = todos.slice()
+    setShowData(tempTodos.sort((a, b) => a.id - b.id))
+  }
+
+  const handleTodosDescendingOrder = () => {
+    const tempTodos = todos.slice()
+    setShowData(tempTodos.sort((a, b) => b.id - a.id))
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -57,6 +67,12 @@ const Home = () => {
         <button onClick={handleShowAllTodos}>Show All Todos</button>
         <button onClick={handleCompletedTodos}>Show Completed Todos</button>
         <button onClick={handleIncompleteTodos}>Show Incomplete Todos</button>
+        <button onClick={handleTodosAscendingOrder}>
+          Ascending Order of Ids
+        </button>
+        <button onClick={handleTodosDescendingOrder}>
+          Descending order of Ids
+        </button>
       </div>
       <div className='todos-list'>
         <TodoList todoList={showData} handleDeleteById={handleDeleteById} />
