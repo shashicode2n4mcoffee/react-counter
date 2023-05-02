@@ -15,10 +15,12 @@ const Home = () => {
     try {
       const response = await axios.get(URL)
       setTodos(response.data)
+      setShowData(response.data)
       setError(false)
     } catch (error) {
       setError(true)
       setTodos([])
+      setShowData([])
     }
 
     // Promise code
@@ -36,6 +38,10 @@ const Home = () => {
     setShowData(todos.filter((item) => item.completed))
   }
 
+  const handleIncompleteTodos = () => {
+    setShowData(todos.filter((item) => !item.completed))
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -46,7 +52,7 @@ const Home = () => {
       <div>
         <button>Show All Todos</button>
         <button onClick={handleCompletedTodos}>Show Completed Todos</button>
-        <button>Show Incomplete Todos</button>
+        <button onClick={handleIncompleteTodos}>Show Incomplete Todos</button>
       </div>
       <div className='todos-list'>
         <TodoList todoList={showData} handleDeleteById={handleDeleteById} />
