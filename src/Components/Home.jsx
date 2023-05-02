@@ -74,6 +74,21 @@ const Home = () => {
           Descending order of Ids
         </button>
       </div>
+      <div className='input-wrapper'>
+        <div>
+          <span>Title</span>
+          <input type='text' placeholder='Enter the title' />
+        </div>
+        <div>
+          <span>UserId</span>
+          <input type='number' placeholder='Enter the User Id' />
+        </div>
+        <div>
+          <span>IsCompleted</span>
+          <input type='radio' />
+        </div>
+        <button>Submit</button>
+      </div>
       <div className='todos-list'>
         <TodoList todoList={showData} handleDeleteById={handleDeleteById} />
       </div>
