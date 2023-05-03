@@ -18,6 +18,7 @@ const Home = () => {
   const [error, setError] = useState(false)
   const [showInput, setShowInput] = useState(false)
   const [inputData, setInputData] = useState(InitialInputData)
+  const [edit, setEdit] = useState(false)
 
   const fetchTodos = async () => {
     // async await code
@@ -74,10 +75,24 @@ const Home = () => {
   }
 
   const handleAddTodo = () => {
-    setTodos((prevState) => [
-      ...prevState,
-      { ...inputData, id: todos.length + 1 },
-    ])
+    if (!edit) {
+      setTodos((prevState) => [
+        ...prevState,
+        { ...inputData, id: todos.length + 1 },
+      ])
+    } else {
+      const tempTodos = todos.slice()
+      tempTodos.forEach((item) => {
+        if (item.id === inputData.id) {
+          item.userId = inputData.userId
+          item.title = inputData.title
+          item.completed = inputData.completed
+        }
+      })
+      setTodos(tempTodos)
+      setEdit(false)
+    }
+
     setInputData(InitialInputData)
     setShowInput(false)
   }
@@ -85,6 +100,13 @@ const Home = () => {
   const handleCancelTodo = () => {
     setInputData(InitialInputData)
     setShowInput(false)
+  }
+
+  const handleEdit = (id) => {
+    setEdit(true)
+    setShowInput(true)
+    const todo = todos.find((item) => item.id === id)
+    setInputData(todo)
   }
 
   useEffect(() => {
@@ -116,7 +138,11 @@ const Home = () => {
         />
       )}
       <div className='todos-list'>
-        <TodoList todoList={showData} handleDeleteById={handleDeleteById} />
+        <TodoList
+          todoList={showData}
+          handleDeleteById={handleDeleteById}
+          handleEdit={handleEdit}
+        />
       </div>
     </div>
   )

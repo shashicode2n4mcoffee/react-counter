@@ -59,3 +59,9 @@ input {
 button {
   cursor: pointer;
 }
+
+.edit-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

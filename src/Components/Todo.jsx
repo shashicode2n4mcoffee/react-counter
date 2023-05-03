@@ -1,9 +1,12 @@
-const Todo = ({ todo, handleDeleteById }) => {
+const Todo = ({ todo, handleDeleteById, handleEdit }) => {
   return (
     <div className='todo-item'>
       <div className='todo-ids'>
         <h2 className='todo-userId'>User ID : {todo.userId}</h2>
-        <h2>ID : {todo.id}</h2>
+        <div className='edit-wrapper'>
+          <h2>ID : {todo.id}</h2>
+          <button onClick={() => handleEdit(todo.id)}>Edit</button>
+        </div>
       </div>
       <div className='todo-desc'>
         <h3>Title : {todo.title}</h3>
