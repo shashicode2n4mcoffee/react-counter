@@ -9,6 +9,7 @@ const Home = () => {
   const [todos, setTodos] = useState([])
   const [showData, setShowData] = useState([])
   const [error, setError] = useState(false)
+  const [showInput, setShowInput] = useState(false)
 
   const fetchTodos = async () => {
     // async await code
@@ -56,6 +57,14 @@ const Home = () => {
     setShowData(tempTodos.sort((a, b) => b.id - a.id))
   }
 
+  const handleShowInputModel = () => {
+    setShowInput(true)
+  }
+
+  const handleCloseInputModel = () => {
+    setShowInput(false)
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -73,22 +82,26 @@ const Home = () => {
         <button onClick={handleTodosDescendingOrder}>
           Descending order of Ids
         </button>
+        <button onClick={handleShowInputModel}>Show Input Model</button>
+        <button onClick={handleCloseInputModel}>Close the Input Model</button>
       </div>
-      <div className='input-wrapper'>
-        <div>
-          <span>Title</span>
-          <input type='text' placeholder='Enter the title' />
+      {showInput && (
+        <div className='input-wrapper'>
+          <div>
+            <span>Title</span>
+            <input type='text' placeholder='Enter the title' />
+          </div>
+          <div>
+            <span>UserId</span>
+            <input type='number' placeholder='Enter the User Id' />
+          </div>
+          <div>
+            <span>IsCompleted</span>
+            <input type='radio' />
+          </div>
+          <button>Submit</button>
         </div>
-        <div>
-          <span>UserId</span>
-          <input type='number' placeholder='Enter the User Id' />
-        </div>
-        <div>
-          <span>IsCompleted</span>
-          <input type='radio' />
-        </div>
-        <button>Submit</button>
-      </div>
+      )}
       <div className='todos-list'>
         <TodoList todoList={showData} handleDeleteById={handleDeleteById} />
       </div>
