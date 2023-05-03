@@ -41,7 +41,8 @@ const Home = () => {
   }
 
   const handleDeleteById = (id) => {
-    setTodos((prevState) => prevState.filter((todo) => todo.id !== id))
+    console.log('ID : ', id)
+    setShowData((prevState) => prevState.filter((todo) => todo.id !== id))
   }
 
   const handleCompletedTodos = () => {
@@ -80,6 +81,10 @@ const Home = () => {
         ...prevState,
         { ...inputData, id: todos.length + 1 },
       ])
+      setShowData((prevState) => [
+        ...prevState,
+        { ...inputData, id: todos.length + 1 },
+      ])
     } else {
       const tempTodos = todos.slice()
       tempTodos.forEach((item) => {
@@ -90,6 +95,7 @@ const Home = () => {
         }
       })
       setTodos(tempTodos)
+      setShowData(tempTodos)
       setEdit(false)
     }
 
