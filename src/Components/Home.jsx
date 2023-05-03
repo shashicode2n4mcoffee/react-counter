@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import TodoList from './TodoList'
 import Input from './Input'
+import Search from './Search'
 
 const URL = 'https://jsonplaceholder.typicode.com/todos'
 
@@ -19,6 +20,7 @@ const Home = () => {
   const [showInput, setShowInput] = useState(false)
   const [inputData, setInputData] = useState(InitialInputData)
   const [edit, setEdit] = useState(false)
+  const [search, setSearch] = useState('')
 
   const fetchTodos = async () => {
     // async await code
@@ -115,6 +117,16 @@ const Home = () => {
     setInputData(todo)
   }
 
+  const handleSearch = (value) => {
+    if (value === '') {
+      setShowData(todos)
+    } else {
+      setShowData((prevState) =>
+        prevState.filter((item) => item?.title?.includes(value))
+      )
+    }
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -123,6 +135,7 @@ const Home = () => {
     <div className='home'>
       <h1>Welcome to our crud app</h1>
       <div>
+        <Search handleSearch={handleSearch} search={search} />
         <button onClick={handleShowAllTodos}>Show All Todos</button>
         <button onClick={handleCompletedTodos}>Show Completed Todos</button>
         <button onClick={handleIncompleteTodos}>Show Incomplete Todos</button>
