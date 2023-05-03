@@ -2,14 +2,22 @@ import './Home.css'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import TodoList from './TodoList'
+import Input from './Input'
 
 const URL = 'https://jsonplaceholder.typicode.com/todos'
+
+const InitialInputData = {
+  title: '',
+  userId: '',
+  completed: false,
+}
 
 const Home = () => {
   const [todos, setTodos] = useState([])
   const [showData, setShowData] = useState([])
   const [error, setError] = useState(false)
   const [showInput, setShowInput] = useState(false)
+  const [inputData, setInputData] = useState(InitialInputData)
 
   const fetchTodos = async () => {
     // async await code
@@ -65,6 +73,20 @@ const Home = () => {
     setShowInput(false)
   }
 
+  const handleAddTodo = () => {
+    setTodos((prevState) => [
+      ...prevState,
+      { ...inputData, id: todos.length + 1 },
+    ])
+    setInputData(InitialInputData)
+    setShowInput(false)
+  }
+
+  const handleCancelTodo = () => {
+    setInputData(InitialInputData)
+    setShowInput(false)
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -86,21 +108,12 @@ const Home = () => {
         <button onClick={handleCloseInputModel}>Close the Input Model</button>
       </div>
       {showInput && (
-        <div className='input-wrapper'>
-          <div>
-            <span>Title</span>
-            <input type='text' placeholder='Enter the title' />
-          </div>
-          <div>
-            <span>UserId</span>
-            <input type='number' placeholder='Enter the User Id' />
-          </div>
-          <div>
-            <span>IsCompleted</span>
-            <input type='radio' />
-          </div>
-          <button>Submit</button>
-        </div>
+        <Input
+          inputData={inputData}
+          setInputData={setInputData}
+          handleAddTodo={handleAddTodo}
+          handleCancelTodo={handleCancelTodo}
+        />
       )}
       <div className='todos-list'>
         <TodoList todoList={showData} handleDeleteById={handleDeleteById} />
